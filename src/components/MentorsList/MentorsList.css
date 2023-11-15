@@ -1,0 +1,34 @@
+.mentors-list-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+  .mentors-list-container {
+    margin: 0 auto;
+    width: 60%;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media (min-width: 900px) {
+  .mentors-list-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media (min-width: 1192px) {
+  .mentors-list-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media (min-width: 1900px) {
+  .mentors-list-container {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

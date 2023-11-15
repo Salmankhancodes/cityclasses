@@ -1,0 +1,23 @@
+.feeds-container {
+  padding: 1rem;
+  width: calc(100% - 2rem);
+  background-color: #b2d8d8;
+}
+
+.feeds-heading {
+  padding: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+}
+
+.feeds-heading .feeds-location {
+  font-size: 1rem;
+}
+.feeds-heading .feeds-sort-filter {
+  width: 7.5rem;
+  border: 1px solid #008080;
+  border-radius: 5px;
+  height: 2rem;
+}
