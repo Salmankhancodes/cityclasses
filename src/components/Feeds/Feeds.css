@@ -21,3 +21,13 @@
   border-radius: 5px;
   height: 2rem;
 }
+
+@media (max-width: 350px) {
+  .feeds-heading .feeds-location {
+    font-size: 0.9rem;
+  }
+  .feeds-heading .feeds-sort-filter {
+    width: 6rem;
+    height: 2rem;
+  }
+}
