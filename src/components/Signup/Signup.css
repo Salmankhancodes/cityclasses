@@ -1,0 +1,105 @@
+.signup-container {
+  min-height: calc(100vh - 5.1rem);
+  max-height: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-container .signup-box {
+  /* background-color: rebeccapurple; */
+  width: 100vw;
+  height: calc(100vh - 5.1rem);
+}
+
+.signup-container .signup-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 0;
+  padding-bottom: 1rem;
+  /* background-color: yellow; */
+}
+.signup-header .signup-error-message {
+  padding: 1rem;
+  color: red;
+  text-wrap: wrap;
+  text-align: center;
+  font-weight: 600;
+}
+.signup-container .signup-fields-container {
+  height: 18rem;
+}
+
+.signup-container .signup-label-input {
+  padding: 0 4rem;
+  display: flex;
+  flex-direction: column;
+
+  margin: 2rem 0;
+}
+.signup-container .signup-label-input:first-child {
+  padding: 0 4rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0;
+}
+
+.signup-container .signup-label-field,
+.signup-input-field {
+  height: 2rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.signup-input-field {
+  font-size: 17px;
+  border: none;
+  border-bottom: 2px solid #008080;
+  padding-left: 0.5rem;
+}
+
+.signup-label-input .signup-input-field:focus {
+  outline: none;
+}
+.signup-container .signup-button-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 6rem;
+}
+
+.signup-container .signup-button {
+  width: 10rem;
+  height: 2.5rem;
+  border: 2px solid #008080;
+  border-radius: 10px;
+  background-color: white;
+  color: #008080;
+  font-weight: 600;
+  cursor: pointer;
+}
+.signup-container .signup-button:hover {
+  background-color: #008080;
+  color: white;
+}
+
+@media (min-width: 600px) {
+  .signup-container .signup-box {
+    width: 80vw;
+  }
+}
+
+@media (min-width: 800px) {
+  .signup-container .signup-box {
+    width: 60vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  .signup-container .signup-box {
+    width: 40vw;
+  }
+}
