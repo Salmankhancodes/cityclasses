@@ -7,17 +7,17 @@
 }
 
 .signup-container .signup-box {
-  /* background-color: rebeccapurple; */
   width: 100vw;
   height: calc(100vh - 5.1rem);
+  min-height: max-content;
 }
 
 .signup-container .signup-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 0;
-  padding-bottom: 1rem;
+  padding: 2rem 0;
+  padding-bottom: 0.2rem;
   /* background-color: yellow; */
 }
 .signup-header .signup-error-message {
@@ -37,6 +37,18 @@
   flex-direction: column;
 
   margin: 2rem 0;
+}
+
+.signup-container .signup-radio-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.signup-container .signup-input-field-radio {
+  margin-left: 2rem;
+  height: 1rem;
+  width: 2rem;
 }
 .signup-container .signup-label-input:first-child {
   padding: 0 4rem;
@@ -69,6 +81,14 @@
   align-items: center;
   justify-content: space-evenly;
   height: 6rem;
+}
+
+.signup-button-box {
+  .login-signup-link {
+    text-decoration: none;
+    color: #008080;
+    font-size: 17px;
+  }
 }
 
 .signup-container .signup-button {

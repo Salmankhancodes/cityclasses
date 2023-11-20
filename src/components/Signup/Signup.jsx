@@ -1,7 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import '../signup/signup.css'
+import { auth } from '../../firebase-setup/firebase'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
-const Signup = () => {
+const Signup = () => {s
   return (
     <div className='signup-container'>
       <div className='signup-box'>
@@ -45,10 +48,36 @@ const Signup = () => {
               name='name'
             />
           </div>
+          <div className='signup-label-input signup-radio-box'>
+            <label className='signup-label-field' htmlFor='name'>
+              Role{' '}
+            </label>
+            <input
+              required
+              type='Radio'
+              className='signup-input-field-radio'
+              name='name'
+            />
+            Student
+            <input
+              required
+              type='Radio'
+              className='signup-input-field-radio'
+              name='name'
+            />
+            Teacher
+          </div>
           <div className='signup-button-box'>
-            <button className='signup-button'>Sign Up</button>
+            <button onClick={handleSignup} className='signup-button'>
+              Sign Up
+            </button>
             <p>
-              Already have an account? <span>Login</span>
+              Already have an account?{' '}
+              <span>
+                <Link className='login-signup-link' to='/login'>
+                  Login
+                </Link>
+              </span>
             </p>
           </div>
         </div>

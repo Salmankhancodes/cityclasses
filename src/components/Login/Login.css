@@ -70,6 +70,14 @@
   /* background-color: rebeccapurple; */
 }
 
+.login-button-box {
+  .login-signup-link {
+    text-decoration: none;
+    color: #008080;
+    font-size: 17px;
+  }
+}
+
 .login-container .login-button {
   width: 10rem;
   height: 2.5rem;
