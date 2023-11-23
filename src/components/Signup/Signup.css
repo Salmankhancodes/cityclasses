@@ -20,13 +20,19 @@
   padding-bottom: 0.2rem;
   /* background-color: yellow; */
 }
-.signup-header .signup-error-message {
+.signup-header .signup-message {
   padding: 1rem;
-  color: red;
   text-wrap: wrap;
   text-align: center;
   font-weight: 600;
 }
+.error {
+  color: red;
+}
+.success {
+  color: green;
+}
+
 .signup-container .signup-fields-container {
   height: 18rem;
 }
@@ -97,13 +103,18 @@
   border: 2px solid #008080;
   border-radius: 10px;
   background-color: white;
-  color: #008080;
+  color: #066f6f;
   font-weight: 600;
   cursor: pointer;
 }
 .signup-container .signup-button:hover {
   background-color: #008080;
   color: white;
+}
+
+.signup-container .signup-button.loading,
+.signup-button.signup-button.loading:hover {
+  cursor: not-allowed;
 }
 
 @media (min-width: 600px) {
