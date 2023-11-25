@@ -3,7 +3,7 @@ export const USERS = 'users'
 
 // role names
 export const STUDENT = 'student'
-export const TEACHER = 'teacher'
+export const MENTOR = 'mentor'
 
 // error-codes
 export const MISSING_EMAIL = 'auth/missing-email'

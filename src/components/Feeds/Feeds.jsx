@@ -7,7 +7,7 @@ const Feeds = () => {
     <div className='feeds-container'>
       <div className='feeds-heading'>
         <p className='feeds-location'>
-          <span>Teachers in </span>Bareilly, India
+          <span>Mentors in </span>Bareilly, India
         </p>
         <select className='feeds-sort-filter' name='' id=''>
           <option value='morePopular'>High Popularity</option>

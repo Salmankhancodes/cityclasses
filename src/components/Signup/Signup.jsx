@@ -12,7 +12,7 @@ import {
   setDoc,
 } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { STUDENT, TEACHER, USERS } from '../../constants'
+import { MENTOR, STUDENT, USERS } from '../../constants'
 import { generateErrorMessage } from '../utils'
 
 const Signup = () => {
@@ -122,13 +122,13 @@ const Signup = () => {
             <input
               required
               type='Radio'
-              value='teacher'
-              checked={selectedRoleOption === TEACHER}
+              value='mentor'
+              checked={selectedRoleOption === MENTOR}
               className='signup-input-field-radio'
               name='user-role'
               onChange={(e) => setSelectedRoleOption(e.target.value)}
             />
-            Teacher
+            Mentor
           </div>
           <div className='signup-button-box'>
             <button
