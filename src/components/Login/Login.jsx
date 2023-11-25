@@ -2,13 +2,9 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../Login/Login.css'
 import { connect } from 'react-redux'
-import {
-  userLoginFailed,
-  userLoginSuccess,
-  userLogout,
-} from '../../store/actions/user-action'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth } from '../../firebase-setup/firebase'
+import { generateErrorMessage } from '../utils'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -22,10 +18,9 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((user) => {
         setLoading(false)
-        console.log(user)
       })
       .catch((err) => {
-        setError(err.code)
+        setError(generateErrorMessage(err.code))
         setLoading(false)
       })
   }
@@ -87,12 +82,6 @@ const Login = () => {
 }
 
 export default connect(
-  ({ user }) => ({
-    user,
-  }),
-  (dispatch) => ({
-    userLoginSuccessDispatch: (opts) => userLoginSuccess(opts),
-    userLoginFailedDispatch: (opts) => userLoginFailed(opts),
-    userLogoutDispatch: () => userLogout(),
-  })
+  ({}) => ({}),
+  (dispatch) => ({})
 )(Login)

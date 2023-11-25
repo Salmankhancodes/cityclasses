@@ -13,6 +13,7 @@ import {
 } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { STUDENT, TEACHER, USERS } from '../../constants'
+import { generateErrorMessage } from '../utils'
 
 const Signup = () => {
   const [userName, setUserName] = useState('')
@@ -50,7 +51,7 @@ const Signup = () => {
       setMsg('✔ Account created successfully.')
     } catch (err) {
       setMsg('')
-      setError(err.code)
+      setError(generateErrorMessage(err.code))
       setLoading(false)
     }
   }

@@ -1,7 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Navbar.css'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase-setup/firebase'
 
 const Navbar = () => {
+  const handleSignOut = () => {
+    signOut(auth)
+  }
   return (
     <nav className='nav-container'>
       <div className='logo-section'>
@@ -17,6 +22,7 @@ const Navbar = () => {
         </div>
       </div>
       <span className='material-symbols-outlined filter-icon'>tune</span>
+      <button onClick={handleSignOut}>logout</button>
       <div className='filter-container'></div>
     </nav>
   )

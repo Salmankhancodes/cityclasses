@@ -2,7 +2,7 @@ import { USER_LOGIN_FAILED, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../names'
 
 const initialState = {
   loading: false,
-  user: {},
+  userData: {},
   error: null,
 }
 // Reducer function
@@ -13,8 +13,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: false,
-        user: {
-          ...action.payload.user,
+        userData: {
+          ...action.payload,
         },
       }
     case USER_LOGIN_FAILED:
