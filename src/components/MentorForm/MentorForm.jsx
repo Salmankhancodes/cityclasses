@@ -1,29 +1,69 @@
 import React, { useState } from 'react'
 import './MentorForm.css'
 import SubjectFields from './SubjectFields'
+import { mentorFormFields } from '../initial-states'
 
 const MentorForm = () => {
-  const [allClassesDetails, setAllClassesDetails] = useState([
-    {
-      subjectName: '',
-      standard: '',
-      fees: '',
-    },
-  ])
-  const addMoreClass = () => {
-    setAllClassesDetails([
-      ...allClassesDetails,
-      {
-        subjectName: '',
-        standard: '',
-        fees: '',
+  const [formData, setFormData] = useState(mentorFormFields)
+
+  const handleChange = (event, section, field) => {
+    const value = event.target.value
+    setFormData((prevState) => ({
+      ...prevState,
+      [section]: {
+        ...prevState[section],
+        [field]: value,
       },
-    ])
+    }))
+  }
+
+  const addClass = () => {
+    const newFields = {
+      ...formData,
+      classesDetails: {
+        ...formData.classesDetails,
+        allClassesInfo: [
+          ...formData.classesDetails.allClassesInfo,
+          { subjectName: '', class: '', fees: 0 },
+        ],
+      },
+    }
+    setFormData({ ...newFields })
+  }
+
+  const handleClassDataChange = (e, fieldName, idx) => {
+    const value = e.target.value
+    const newFormData = { ...formData }
+    newFormData.classesDetails.allClassesInfo[idx][fieldName] = value
+    setFormData(newFormData)
   }
 
   const removeClass = (idx) => {
-    const filteredClasses = allClassesDetails.filter((item, id) => id !== idx)
-    setAllClassesDetails([...filteredClasses])
+    const newFormData = { ...formData }
+    newFormData.classesDetails.allClassesInfo.splice(idx, 1)
+    setFormData({
+      ...formData,
+      classesDetails: {
+        ...formData.classesDetails,
+        allClassesInfo: newFormData.classesDetails.allClassesInfo,
+      },
+    })
+  }
+  const {
+    personalDetails: { name, email, dob, phone, residentialAddress },
+    classesDetails: {
+      coachingName,
+      modeOfTeaching,
+      coachingAddress,
+      YoE,
+      allClassesInfo,
+    },
+  } = formData
+  const handleFormReset = () => {
+    const confirmOption = confirm('Do you really want to reset form ?')
+    if (confirmOption) {
+      setFormData(mentorFormFields)
+    }
   }
   return (
     <div className='mentor-form-container'>
@@ -35,24 +75,40 @@ const MentorForm = () => {
               <label className='form-label' htmlFor='name'>
                 Name:{' '}
               </label>
-              <input required type='text' className='form-input' name='name' />
+              <input
+                required
+                value={name}
+                type='text'
+                className='form-input'
+                name='name'
+                onChange={(e) => handleChange(e, 'personalDetails', 'name')}
+              />
             </div>
             <div className='field-box'>
               <label className='form-label' htmlFor='email'>
                 Email:{' '}
               </label>
               <input
+                value={email}
                 required
                 type='email'
                 className='form-input'
                 name='email'
+                onChange={(e) => handleChange(e, 'personalDetails', 'email')}
               />
             </div>{' '}
             <div className='field-box'>
               <label className='form-label' htmlFor='dob'>
                 Date of Birth:{' '}
               </label>
-              <input required type='date' className='form-input' name='dob' />
+              <input
+                required
+                type='date'
+                value={dob}
+                className='form-input'
+                name='dob'
+                onChange={(e) => handleChange(e, 'personalDetails', 'dob')}
+              />
             </div>{' '}
             <div className='field-box'>
               <label className='form-label' htmlFor='phone'>
@@ -63,6 +119,8 @@ const MentorForm = () => {
                 type='number'
                 className='form-input'
                 name='Phone'
+                value={phone}
+                onChange={(e) => handleChange(e, 'personalDetails', 'phone')}
               />
             </div>
             <div className='field-box'>
@@ -74,6 +132,10 @@ const MentorForm = () => {
                 type='text'
                 className='form-input'
                 name='homeAddress'
+                value={residentialAddress}
+                onChange={(e) =>
+                  handleChange(e, 'personalDetails', 'residentialAddress')
+                }
               />
             </div>
           </div>
@@ -91,6 +153,10 @@ const MentorForm = () => {
                 type='text'
                 className='form-input'
                 name='classesName'
+                value={coachingName}
+                onChange={(e) =>
+                  handleChange(e, 'classesDetails', 'coachingName')
+                }
               />
             </div>
             <div className='field-box'>
@@ -103,6 +169,10 @@ const MentorForm = () => {
                 type='text'
                 className='form-input'
                 name='modeOfTeaching'
+                value={modeOfTeaching}
+                onChange={(e) =>
+                  handleChange(e, 'classesDetails', 'modeOfTeaching')
+                }
               />
             </div>{' '}
             <div className='field-box'>
@@ -115,6 +185,8 @@ const MentorForm = () => {
                 type='number'
                 className='form-input'
                 name='yearOfExperience'
+                value={YoE}
+                onChange={(e) => handleChange(e, 'classesDetails', 'YoE')}
               />
             </div>{' '}
             <div className='field-box'>
@@ -126,19 +198,23 @@ const MentorForm = () => {
                 type='text'
                 className='form-input'
                 name='coachingAddress'
+                value={coachingAddress}
+                onChange={(e) =>
+                  handleChange(e, 'classesDetails', 'coachingAddress')
+                }
               />
             </div>
           </div>
         </div>
-        {allClassesDetails.map((item, idx) => {
+        {allClassesInfo?.map((eachClass, idx) => {
           return (
             <SubjectFields
               key={idx}
-              addMoreClass={addMoreClass}
+              idx={idx}
+              data={eachClass}
+              addClass={addClass}
               removeClass={removeClass}
-              index={idx}
-              data={item}
-              lastSubject={allClassesDetails.length === idx + 1}
+              handleClassDataChange={handleClassDataChange}
             />
           )
         })}
