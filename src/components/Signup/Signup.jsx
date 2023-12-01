@@ -1,59 +1,18 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../signup/signup.css'
-import { auth, db } from '../../firebase-setup/firebase'
-import {
-  doc,
-  addDoc,
-  collection,
-  updateDoc,
-  deleteDoc,
-  getDoc,
-  setDoc,
-} from 'firebase/firestore'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { MENTOR, STUDENT, USERS } from '../../constants'
-import { generateErrorMessage } from '../utils'
+import { MENTOR, STUDENT } from '../../constants'
+import { userSignup } from '../../store/actions/user-sign-up-action'
+import { connect } from 'react-redux'
 
-const Signup = () => {
+const Signup = (props) => {
+  const { loading, error, userSignUpDispatch, message } = props
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
   const [selectedRoleOption, setSelectedRoleOption] = useState(STUDENT)
-  const [msg, setMsg] = useState('')
   const handleSignup = async () => {
-    try {
-      setLoading(true)
-      setError('')
-      setMsg('')
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      )
-      const userDocRef = doc(db, USERS, user.uid)
-      await setDoc(
-        userDocRef,
-        {
-          userName,
-          email,
-          role: selectedRoleOption,
-        },
-        { merge: true }
-      )
-      setUserName('')
-      setPassword('')
-      setEmail('')
-      setSelectedRoleOption(STUDENT)
-      setLoading(false)
-      setMsg('✔ Account created successfully.')
-    } catch (err) {
-      setMsg('')
-      setError(generateErrorMessage(err.code))
-      setLoading(false)
-    }
+    userSignUpDispatch({ userName, email, password, selectedRoleOption })
   }
 
   return (
@@ -62,7 +21,7 @@ const Signup = () => {
         <div className='signup-header'>
           <h2 className='signup-heading'>Create Account</h2>
           <span className={`signup-message ${error ? 'error' : 'success'}`}>
-            {error || msg}
+            {message}
           </span>
         </div>
         <div className='signup-fields-container'>
@@ -153,4 +112,13 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default connect(
+  ({ signUpReducer }) => ({
+    loading: signUpReducer.loading,
+    error: signUpReducer.error,
+    message: signUpReducer.signUpMessage,
+  }),
+  (dispatch) => ({
+    userSignUpDispatch: (opts) => dispatch(userSignup(opts)),
+  })
+)(Signup)

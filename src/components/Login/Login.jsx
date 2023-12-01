@@ -2,27 +2,15 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../Login/Login.css'
 import { connect } from 'react-redux'
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { auth } from '../../firebase-setup/firebase'
-import { generateErrorMessage } from '../utils'
+import { userLogin } from '../../store/actions/user-login-action'
 
-const Login = () => {
+const Login = (props) => {
+  const { loading, error, userLoginDispatch } = props
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
 
   const handleLogin = () => {
-    setLoading(true)
-    setError('')
-    signInWithEmailAndPassword(auth, email, password)
-      .then((user) => {
-        setLoading(false)
-      })
-      .catch((err) => {
-        setError(generateErrorMessage(err.code))
-        setLoading(false)
-      })
+    userLoginDispatch({ email, password })
   }
   return (
     <div className='login-container'>
@@ -82,6 +70,8 @@ const Login = () => {
 }
 
 export default connect(
-  ({}) => ({}),
-  (dispatch) => ({})
+  ({ user }) => ({ loading: user.loading, error: user.error }),
+  (dispatch) => ({
+    userLoginDispatch: (opts) => dispatch(userLogin(opts)),
+  })
 )(Login)

@@ -25,10 +25,6 @@ const mentorFormReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload.error,
       }
-    case USER_LOGOUT:
-      return {
-        ...initialState,
-      }
     default:
       return state
   }

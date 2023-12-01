@@ -8,9 +8,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase-setup/firebase'
-import { userLoginSuccess, userLogout } from './store/actions/user-action'
+import { userLogout } from './store/actions/user-login-action'
 import { connect } from 'react-redux'
 import _ from 'lodash'
+import { USER_LOGIN_FULFILLED } from './store/names'
 
 function App(props) {
   const { userData, userLoginSuccessDispatch, userLogoutDispatch } = props
@@ -52,7 +53,8 @@ export default connect(
     userData: user.userData,
   }),
   (dispatch) => ({
-    userLoginSuccessDispatch: (opts) => dispatch(userLoginSuccess(opts)),
+    userLoginSuccessDispatch: (opts) =>
+      dispatch({ type: USER_LOGIN_FULFILLED, payload: opts }),
     userLogoutDispatch: () => dispatch(userLogout()),
   })
 )(App)

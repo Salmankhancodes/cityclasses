@@ -1,4 +1,10 @@
-import { USER_LOGIN_FAILED, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../names'
+import { generateErrorMessage } from '../../components/utils'
+import {
+  USER_LOGIN_PENDING,
+  USER_LOGIN_FULFILLED,
+  USER_LOGIN_REJECTED,
+  USER_LOGOUT,
+} from '../names'
 
 const initialState = {
   loading: false,
@@ -8,20 +14,26 @@ const initialState = {
 // Reducer function
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case USER_LOGIN_SUCCESS:
+    case USER_LOGIN_PENDING:
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      }
+    case USER_LOGIN_FULFILLED:
       return {
         ...state,
         loading: false,
-        error: false,
         userData: {
           ...action.payload,
         },
+        error: false,
       }
-    case USER_LOGIN_FAILED:
+    case USER_LOGIN_REJECTED:
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        error: generateErrorMessage(action.payload),
       }
     case USER_LOGOUT:
       return {
