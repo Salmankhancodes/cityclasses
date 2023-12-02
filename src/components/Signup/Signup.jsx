@@ -113,10 +113,10 @@ const Signup = (props) => {
 }
 
 export default connect(
-  ({ signUpReducer }) => ({
-    loading: signUpReducer.loading,
-    error: signUpReducer.error,
-    message: signUpReducer.signUpMessage,
+  ({ signUpForm }) => ({
+    loading: signUpForm.loading,
+    error: signUpForm.error,
+    message: signUpForm.signUpMessage,
   }),
   (dispatch) => ({
     userSignUpDispatch: (opts) => dispatch(userSignup(opts)),

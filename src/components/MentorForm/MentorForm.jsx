@@ -1,11 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './MentorForm.css'
 import SubjectFields from './SubjectFields'
 import { mentorFormFields } from '../initial-states'
+import { connect } from 'react-redux'
+import {
+  mentorFormReset,
+  saveMentorForm,
+  viewMentorForm,
+} from '../../store/actions/mentor-form-action'
 
-const MentorForm = () => {
+const MentorForm = (props) => {
+  const {
+    saveMentorFormDispatch,
+    loading,
+    error,
+    message,
+    getMentorFormDispatch,
+    data,
+    resetFormDispatch,
+  } = props
   const [formData, setFormData] = useState(mentorFormFields)
-
+  useEffect(() => {
+    getMentorFormDispatch()
+  }, [])
+  useEffect(() => {
+    setFormData(data)
+  }, [data])
   const handleChange = (event, section, field) => {
     const value = event.target.value
     setFormData((prevState) => ({
@@ -62,12 +82,19 @@ const MentorForm = () => {
   const handleFormReset = () => {
     const confirmOption = confirm('Do you really want to reset form ?')
     if (confirmOption) {
-      setFormData(mentorFormFields)
+      resetFormDispatch()
     }
+  }
+
+  const handleFormSubmit = () => {
+    saveMentorFormDispatch(formData)
   }
   return (
     <div className='mentor-form-container'>
       <div className='mentor-form-main'>
+        <span className={`signup-message ${error ? 'error' : 'success'}`}>
+          {message}
+        </span>
         <div className='mentor-form__section personal-details'>
           <p className='section-heading'>Personal Details</p>
           <div className='group-fields'>
@@ -95,6 +122,7 @@ const MentorForm = () => {
                 className='form-input'
                 name='email'
                 onChange={(e) => handleChange(e, 'personalDetails', 'email')}
+                readOnly
               />
             </div>{' '}
             <div className='field-box'>
@@ -220,11 +248,26 @@ const MentorForm = () => {
         })}
       </div>
       <div className='mentor-form-button-box'>
-        <button>Save Changes</button>
-        <button>Reset form</button>
+        <button disabled={loading} onClick={handleFormSubmit}>
+          {!loading ? 'Save Changes' : 'Saving...'}
+        </button>
+        <button onClick={handleFormReset}>Reset form</button>
       </div>
     </div>
   )
 }
 
-export default MentorForm
+export default connect(
+  ({ mentorSaveForm }) => ({
+    mentorSaveForm,
+    loading: mentorSaveForm?.loading,
+    error: mentorSaveForm?.error,
+    message: mentorSaveForm?.message,
+    data: mentorSaveForm.data,
+  }),
+  (dispatch) => ({
+    saveMentorFormDispatch: (opts) => dispatch(saveMentorForm(opts)),
+    getMentorFormDispatch: () => dispatch(viewMentorForm()),
+    resetFormDispatch: () => dispatch(mentorFormReset()),
+  })
+)(MentorForm)

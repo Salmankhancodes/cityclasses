@@ -1,32 +1,64 @@
-import { USER_LOGIN_FAILED, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../names'
+import {
+  MENTOR_FORM_SAVE_FULFILLED,
+  MENTOR_FORM_SAVE_PENDING,
+  MENTOR_FORM_SAVE_REJECTED,
+  MENTOR_FORM_VIEW_FULFILLED,
+  MENTOR_FORM_RESET,
+} from '../names'
+
 import { mentorFormFields } from '../../components/initial-states'
+
 const initialState = {
   loading: false,
-  mentorData: {
+  message: '',
+  error: null,
+  data: {
     ...mentorFormFields,
   },
-  error: null,
 }
 // Reducer function
-const mentorFormReducer = (state = initialState, action) => {
+const mentorFormSaveReducer = (state = initialState, action) => {
   switch (action.type) {
-    case USER_LOGIN_SUCCESS:
+    case MENTOR_FORM_SAVE_PENDING:
+      return {
+        ...state,
+        loading: true,
+        error: false,
+        message: '',
+      }
+    case MENTOR_FORM_SAVE_FULFILLED:
+      return {
+        ...state,
+        message: '✔ Details updated successfully.',
+        loading: false,
+        error: false,
+        data: {
+          ...action.payload,
+        },
+      }
+    case MENTOR_FORM_VIEW_FULFILLED: {
       return {
         ...state,
         loading: false,
         error: false,
-        userData: {
+        data: {
           ...action.payload,
         },
       }
-    case USER_LOGIN_FAILED:
+    }
+    case MENTOR_FORM_SAVE_REJECTED:
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        message: action.payload,
+        error: true,
+      }
+    case MENTOR_FORM_RESET:
+      return {
+        ...initialState,
       }
     default:
       return state
   }
 }
-export default userReducer
+export default mentorFormSaveReducer

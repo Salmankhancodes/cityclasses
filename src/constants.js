@@ -1,5 +1,6 @@
 // firebase user's collection name
 export const USERS = 'users'
+export const MENTORS = 'mentors'
 
 // role names
 export const STUDENT = 'student'

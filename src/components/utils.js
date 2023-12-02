@@ -11,6 +11,7 @@ import {
   TOO_MANY_REQUESTS,
   INVALID_CREDENTIALS,
 } from '../../src/constants'
+import store from '../store/store'
 
 export const generateErrorMessage = (errMsg) => {
   if (errMsg === MISSING_EMAIL) {
@@ -37,3 +38,9 @@ export const generateErrorMessage = (errMsg) => {
     return 'Invalid email/password'
   } else return errMsg
 }
+/**
+ * This method returns current data from store for requested state.
+ * @param {string} stateName
+ * @returns data from store
+ */
+export const getDataFromStore = (stateName) => store.getState()?.[stateName]
