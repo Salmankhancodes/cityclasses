@@ -1,11 +1,16 @@
 import React from 'react'
 import './MentorCard.css'
-const MentorCard = () => {
+const MentorCard = (props) => {
+  const { data } = props
+  const {
+    personalDetails: { name, imageUrl },
+  } = data
+  console.log(data)
   return (
     <div className='mentor-card'>
       <img
         className='mentor-card-img'
-        src='src\assets\mentorimage.jpg'
+        src={imageUrl || 'srcassetsmentorimage.jpg'}
         alt=''
       />
       <div className='mentor-card__details'>
@@ -14,7 +19,7 @@ const MentorCard = () => {
           <span>₹1200</span>
         </div>
         <div className='mentor-card__row2'>
-          <span>Vishal Singh</span>
+          <span>{name}</span>
           <span className='mentor-card__rating'>4.3⭐</span>
         </div>
       </div>

@@ -20,6 +20,7 @@ const MentorForm = (props) => {
     resetFormDispatch,
   } = props
   const [formData, setFormData] = useState(mentorFormFields)
+  const [image, setImage] = useState(null)
   useEffect(() => {
     getMentorFormDispatch()
   }, [])
@@ -87,7 +88,12 @@ const MentorForm = (props) => {
   }
 
   const handleFormSubmit = () => {
-    saveMentorFormDispatch(formData)
+    saveMentorFormDispatch(formData, image)
+  }
+  const handleImageUpload = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0])
+    }
   }
   return (
     <div className='mentor-form-container'>
@@ -164,6 +170,20 @@ const MentorForm = (props) => {
                 onChange={(e) =>
                   handleChange(e, 'personalDetails', 'residentialAddress')
                 }
+              />
+            </div>
+            <div className='field-box'>
+              <label className='form-label' htmlFor='profilePhoto'>
+                Profile Photo{' '}
+              </label>
+              <input
+                required
+                type='file'
+                accept='image/*'
+                className='form-input'
+                name='profilePhoto'
+                // value={residentialAddress}
+                onChange={handleImageUpload}
               />
             </div>
           </div>
@@ -266,7 +286,7 @@ export default connect(
     data: mentorSaveForm.data,
   }),
   (dispatch) => ({
-    saveMentorFormDispatch: (opts) => dispatch(saveMentorForm(opts)),
+    saveMentorFormDispatch: (opts, img) => dispatch(saveMentorForm(opts, img)),
     getMentorFormDispatch: () => dispatch(viewMentorForm()),
     resetFormDispatch: () => dispatch(mentorFormReset()),
   })

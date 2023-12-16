@@ -39,7 +39,7 @@ function App(props) {
           <Route path='/signup' element={userExist ? <Feeds /> : <Signup />} />
           <Route path='/details' element={<MentorDetails />} />
           <Route
-            path='/class-details-form'
+            path='/mentor-form'
             element={userExist ? <MentorForm /> : <Signup />}
           />
         </Routes>

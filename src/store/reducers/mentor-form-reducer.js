@@ -5,7 +5,7 @@ import {
   MENTOR_FORM_VIEW_FULFILLED,
   MENTOR_FORM_RESET,
 } from '../names'
-
+import _ from 'lodash'
 import { mentorFormFields } from '../../components/initial-states'
 
 const initialState = {
@@ -37,12 +37,13 @@ const mentorFormSaveReducer = (state = initialState, action) => {
         },
       }
     case MENTOR_FORM_VIEW_FULFILLED: {
+      const formData = action.payload ? action.payload : mentorFormFields
       return {
         ...state,
         loading: false,
         error: false,
         data: {
-          ...action.payload,
+          ...formData,
         },
       }
     }

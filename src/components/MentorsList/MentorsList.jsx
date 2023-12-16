@@ -1,16 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './MentorsList.css'
 import MentorCard from '../MentorCard/MentorCard'
+import { connect } from 'react-redux'
+import { getAllMentorsData } from '../../store/actions/mentors-list-action'
 
-const MentorsList = () => {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const MentorsList = (props) => {
+  const { getAllMentorsDataDispatch, data, loading, error } = props
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8]
+  useEffect(() => {
+    getAllMentorsDataDispatch()
+  }, [])
+  // console.log(data)
   return (
     <div className='mentors-list-container'>
-      {arr.map((ele, key) => {
-        return <MentorCard key={key} />
+      {data.map((mentor, key) => {
+        return <MentorCard data={mentor} key={mentor.id} />
       })}
     </div>
   )
 }
 
-export default MentorsList
+export default connect(
+  ({ mentorsList }) => ({
+    data: mentorsList.data,
+    loading: mentorsList.loading,
+    error: mentorsList.error,
+  }),
+  (dispatch) => ({
+    getAllMentorsDataDispatch: () => dispatch(getAllMentorsData()),
+  })
+)(MentorsList)
