@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './MentorDetails.css'
+import { useParams } from 'react-router-dom'
+import { getMentorDetails } from '../../store/actions/details-page-action'
+import { connect } from 'react-redux'
 
-const MentorDetails = () => {
+const MentorDetails = (props) => {
+  const { id } = useParams()
+  const { getMentorDetailsDispatch, loading, error, data } = props
+  const { classesDetails, personalDetails } = data
+  console.log(data)
+  useEffect(() => {
+    getMentorDetailsDispatch(id)
+  }, [])
   return (
     <div className='mentor-details-container'>
       <div className='mentor-details-lg-grid'>
@@ -9,14 +19,14 @@ const MentorDetails = () => {
           className='mentor-details__video'
           src='https://www.youtube.com/embed/OLVUrgQ_BbA?si=PCk_OtC9X9VkenrO'
           title='YouTube video player'
-          frameborder='0'
+          frameBorder='0'
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-          allowfullscreen
+          allowFullScreen
         ></iframe>
         <div className='mentor-details-right-card'>
           <div className='mentor-card__details'>
             <div className='mentor-card__row1'>
-              <span>Vishal Singh</span>
+              <span>{personalDetails?.name}</span>
               <span className='mentor-card__rating'>4.3⭐</span>
             </div>
             <div className='mentor-card__row2'>
@@ -27,59 +37,49 @@ const MentorDetails = () => {
           <table className='header-details-table'>
             <tr>
               <th>Location</th>
-              <td>
-                111 C/O Pustak sansar raza chowk sailani road old city bareilly
-              </td>
+              <td>{classesDetails?.coachingAddress}</td>
             </tr>
             <tr>
               <th>Mode of teaching</th>
-              <td>Table batch</td>
+              <td>{classesDetails?.modeOfTeaching}</td>
             </tr>
           </table>
         </div>
       </div>
       <div className='mentor-details-summary'>
-        <p className='mentor-details-summary__heading'>About</p>
+        <div className='mentor-details-summary__heading'>
+          <img
+            className='mentor-details-summary__image'
+            src={personalDetails?.imageUrl}
+            alt='mentorPicture'
+          />
+          <p>About</p>
+        </div>
         <p className='mentor-details-summary__description'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam maiores
-          delectus qui nulla. Inventore culpa magnam officia saepe unde ex
-          doloribus suscipit totam recusandae ullam deleniti, eveniet
-          consequatur molestiae, aut voluptas quo molestias blanditiis
-          repellendus pariatur. Illum inventore totam nam repudiandae doloremque
-          facilis dolore vero sint, accusamus mollitia eaque ad?
+          {personalDetails?.summary}
         </p>
       </div>
       <div className='table-wrapper'>
         <table className='lg-grid-details-table header-details-table'>
           <tr>
-            <th>Location</th>
-            <td>
-              111 C/O Pustak sansar raza chowk sailani road old city bareilly
-            </td>
+            <th>Year of Experience</th>
+            <td>{classesDetails?.YoE}</td>
           </tr>
           <tr>
-            <th>Mode of teaching</th>
-            <td>Table batch</td>
+            <th>Phone</th>
+            <td>{personalDetails?.phone}</td>
           </tr>
           <tr>
-            <th>Location</th>
-            <td>
-              111 C/O Pustak sansar raza chowk sailani road old city bareilly
-            </td>
+            <th>Email</th>
+            <td>{personalDetails?.email}</td>
           </tr>
           <tr>
-            <th>Mode of teaching</th>
-            <td>Table batch</td>
+            <th>Coaching Center Name</th>
+            <td>{classesDetails?.coachingName}</td>
           </tr>
           <tr>
-            <th>Location</th>
-            <td>
-              111 C/O Pustak sansar raza chowk sailani road old city bareilly
-            </td>
-          </tr>
-          <tr>
-            <th>Mode of teaching</th>
-            <td>Table batch</td>
+            <th>Coaching Address</th>
+            <td>{classesDetails?.coachingAddress}</td>
           </tr>
         </table>
       </div>
@@ -87,4 +87,13 @@ const MentorDetails = () => {
   )
 }
 
-export default MentorDetails
+export default connect(
+  ({ detailsPage }) => ({
+    loading: detailsPage.loading,
+    error: detailsPage.error,
+    data: detailsPage.data,
+  }),
+  (dispatch) => ({
+    getMentorDetailsDispatch: (opts) => dispatch(getMentorDetails(opts)),
+  })
+)(MentorDetails)

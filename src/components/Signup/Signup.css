@@ -74,7 +74,7 @@
 .signup-input-field {
   font-size: 17px;
   border: none;
-  border-bottom: 2px solid #008080;
+  border-bottom: 2px solid #ee4e34;
   padding-left: 0.5rem;
 }
 
@@ -92,7 +92,7 @@
 .signup-button-box {
   .login-signup-link {
     text-decoration: none;
-    color: #008080;
+    color: #ee4e34;
     font-size: 17px;
   }
 }
@@ -100,7 +100,7 @@
 .signup-container .signup-button {
   width: 10rem;
   height: 2.5rem;
-  border: 2px solid #008080;
+  border: 2px solid #ee4e34;
   border-radius: 10px;
   background-color: white;
   color: #066f6f;
@@ -108,7 +108,7 @@
   cursor: pointer;
 }
 .signup-container .signup-button:hover {
-  background-color: #008080;
+  background-color: #ee4e34;
   color: white;
 }
 

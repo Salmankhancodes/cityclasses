@@ -8,6 +8,7 @@ import {
   saveMentorForm,
   viewMentorForm,
 } from '../../store/actions/mentor-form-action'
+import { auth } from '../../firebase-setup/firebase'
 
 const MentorForm = (props) => {
   const {
@@ -37,7 +38,6 @@ const MentorForm = (props) => {
       },
     }))
   }
-
   const addClass = () => {
     const newFields = {
       ...formData,
@@ -71,7 +71,7 @@ const MentorForm = (props) => {
     })
   }
   const {
-    personalDetails: { name, email, dob, phone, residentialAddress },
+    personalDetails: { name, email, dob, phone, residentialAddress, summary },
     classesDetails: {
       coachingName,
       modeOfTeaching,
@@ -80,6 +80,7 @@ const MentorForm = (props) => {
       allClassesInfo,
     },
   } = formData
+  console.log(name, email)
   const handleFormReset = () => {
     const confirmOption = confirm('Do you really want to reset form ?')
     if (confirmOption) {
@@ -122,7 +123,7 @@ const MentorForm = (props) => {
                 Email:{' '}
               </label>
               <input
-                value={email}
+                value={auth?.currentUser?.email}
                 required
                 type='email'
                 className='form-input'
@@ -182,9 +183,23 @@ const MentorForm = (props) => {
                 accept='image/*'
                 className='form-input'
                 name='profilePhoto'
-                // value={residentialAddress}
                 onChange={handleImageUpload}
               />
+            </div>
+            <div className='field-box '>
+              <label htmlFor='summary' className='form-label'>
+                Summary
+              </label>
+              <textarea
+                className='form-input'
+                name='summary'
+                value={summary}
+                type='text'
+                id=''
+                cols='30'
+                rows='10'
+                onChange={(e) => handleChange(e, 'personalDetails', 'summary')}
+              ></textarea>
             </div>
           </div>
         </div>

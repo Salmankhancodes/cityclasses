@@ -50,6 +50,19 @@ const SubjectFields = ({
             onChange={(e) => handleClassDataChange(e, 'fees', idx)}
           />
         </div>
+        <div className='field-box'>
+          <label className='form-label' htmlFor={`demoLink${idx}`}>
+            Demo video link:{' '}
+          </label>
+          <input
+            required
+            type='text'
+            className='form-input'
+            name={`demoLink${idx}`}
+            value={data.demoLink}
+            onChange={(e) => handleClassDataChange(e, 'demoLink', idx)}
+          />
+        </div>
         {idx == 0 ? (
           <span
             title='Add more subject'

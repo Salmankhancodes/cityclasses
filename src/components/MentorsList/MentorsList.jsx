@@ -6,11 +6,9 @@ import { getAllMentorsData } from '../../store/actions/mentors-list-action'
 
 const MentorsList = (props) => {
   const { getAllMentorsDataDispatch, data, loading, error } = props
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8]
   useEffect(() => {
     getAllMentorsDataDispatch()
   }, [])
-  // console.log(data)
   return (
     <div className='mentors-list-container'>
       {data.map((mentor, key) => {

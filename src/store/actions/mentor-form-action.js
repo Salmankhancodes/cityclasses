@@ -1,7 +1,7 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { getDataFromStore } from '../../components/utils'
 import { MENTORS } from '../../constants'
-import { db, imageDb } from '../../firebase-setup/firebase'
+import { auth, db, imageDb } from '../../firebase-setup/firebase'
 import {
   MENTOR_FORM_SAVE_FULFILLED,
   MENTOR_FORM_SAVE_PENDING,
@@ -51,7 +51,14 @@ export const viewMentorForm = () => {
       const currentUser = getDataFromStore('user').userData
       const userDocRef = doc(db, MENTORS, currentUser.uid)
       const data = await getDoc(userDocRef)
-      dispatch({ type: MENTOR_FORM_VIEW_FULFILLED, payload: data.data() })
+      const payload = {
+        ...data.data(),
+        personalDetails: {
+          ...data.data().personalDetails,
+          email: auth.currentUser.email,
+        },
+      }
+      dispatch({ type: MENTOR_FORM_VIEW_FULFILLED, payload: payload })
     } catch (error) {
       dispatch({ type: MENTOR_FORM_SAVE_REJECTED, payload: error.code })
     }

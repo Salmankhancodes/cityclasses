@@ -7,6 +7,7 @@ import {
 } from '../names'
 import _ from 'lodash'
 import { mentorFormFields } from '../../components/initial-states'
+import { auth } from '../../firebase-setup/firebase'
 
 const initialState = {
   loading: false,
@@ -57,6 +58,13 @@ const mentorFormSaveReducer = (state = initialState, action) => {
     case MENTOR_FORM_RESET:
       return {
         ...initialState,
+        data: {
+          ...initialState.data,
+          personalDetails: {
+            ...initialState.data.personalDetails,
+            email: auth.currentUser.email,
+          },
+        },
       }
     default:
       return state

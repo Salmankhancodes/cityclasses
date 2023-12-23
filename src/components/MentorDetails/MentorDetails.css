@@ -64,10 +64,17 @@ td {
   background-color: wheat;
   font-weight: 700;
   font-size: 1rem;
-  height: 2rem;
+  height: 4rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+.mentor-details-summary__heading p {
+  text-align: center;
+  margin: 0;
+  width: 80%;
+}
+.mentor-details-summary__image {
+  height: 100%;
 }
 
 .mentor-details-summary__description {
@@ -97,7 +104,7 @@ td {
 
   .mentor-details-summary__heading {
     font-size: 1.2rem;
-    height: 2.5rem;
+    height: 4rem;
   }
 
   .mentor-details-summary__description {
@@ -120,7 +127,7 @@ td {
   }
   .mentor-details-summary__heading {
     font-size: 1.2rem;
-    height: 2.5rem;
+    height: 4rem;
   }
 
   .mentor-details-summary {

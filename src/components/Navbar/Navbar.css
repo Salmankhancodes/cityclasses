@@ -36,7 +36,7 @@ nav .search-bar {
 }
 
 nav .search-bar {
-  border: 1.5px solid #008080;
+  border: 1.5px solid #ee4e34;
   padding: 0.5rem 0.8rem;
   border-radius: 5px;
   display: flex;
@@ -62,11 +62,11 @@ nav .search-bar .search-icon:hover {
 }
 
 nav .filter-icon {
-  color: #008080;
+  color: #ee4e34;
 }
 
 nav .search-icon {
-  color: #008080;
+  color: #ee4e34;
 }
 
 nav .filter-icon:hover {

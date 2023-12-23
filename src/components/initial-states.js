@@ -1,3 +1,4 @@
+import { auth } from '../firebase-setup/firebase'
 export const mentorFormFields = {
   personalDetails: {
     name: '',
@@ -5,6 +6,7 @@ export const mentorFormFields = {
     dob: '',
     phone: 0,
     residentialAddress: '',
+    summary: '',
   },
   classesDetails: {
     coachingName: '',
@@ -16,6 +18,7 @@ export const mentorFormFields = {
         subjectName: '',
         class: '',
         fees: 0,
+        demoLink: '',
       },
     ],
   },
