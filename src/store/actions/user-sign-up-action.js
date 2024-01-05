@@ -7,6 +7,7 @@ import { auth, db } from '../../firebase-setup/firebase'
 import { USERS } from '../../constants'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
+import { dummyData } from '../../components/initial-states'
 
 export const userSignup = (data) => {
   return async (dispatch) => {

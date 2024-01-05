@@ -1,40 +1,66 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './MentorDetails.css'
 import { useParams } from 'react-router-dom'
 import { getMentorDetails } from '../../store/actions/details-page-action'
 import { connect } from 'react-redux'
+import Accordion from '../common-components/accordion/Accordion'
 
 const MentorDetails = (props) => {
   const { id } = useParams()
+  const [accordionState, setToggleAccordion] = useState(true)
   const { getMentorDetailsDispatch, loading, error, data } = props
   const { classesDetails, personalDetails } = data
   console.log(data)
   useEffect(() => {
     getMentorDetailsDispatch(id)
   }, [])
+
+  const updateSummaryAccordion = (state) => {
+    setToggleAccordion(!state)
+  }
   return (
     <div className='mentor-details-container'>
-      <div className='mentor-details-lg-grid'>
-        <iframe
-          className='mentor-details__video'
-          src='https://www.youtube.com/embed/OLVUrgQ_BbA?si=PCk_OtC9X9VkenrO'
-          title='YouTube video player'
-          frameBorder='0'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-          allowFullScreen
-        ></iframe>
-        <div className='mentor-details-right-card'>
-          <div className='mentor-card__details'>
-            <div className='mentor-card__row1'>
-              <span>{personalDetails?.name}</span>
-              <span className='mentor-card__rating'>4.3⭐</span>
+      <div className='details-content'>
+        <div className='video-info-section'>
+          <div className='video-box'>
+            <iframe
+              src='https://www.youtube.com/embed/OLVUrgQ_BbA?si=PCk_OtC9X9VkenrO'
+              title='YouTube video player'
+              frameBorder='0'
+              className='demo-video'
+              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+              allowFullScreen
+            ></iframe>
+          </div>
+          <div className='mentor-details_info'>
+            <div className='row-and-rating'>
+              <h2>{personalDetails?.name}</h2>
+              <h3>4⭐</h3>
             </div>
-            <div className='mentor-card__row2'>
-              <span>Economics</span>
-              <span>₹1200</span>
+            <div className='subject-and-fees'>
+              <h4>Economics</h4>
+              <h4>₹1200</h4>
             </div>
           </div>
+        </div>
+        <div className='mentor-summary'>
+          <Accordion
+            accordionDescription={personalDetails?.summary}
+            headerTitle={'About'}
+            accordionState={accordionState}
+            updateAccordionState={(state) => updateSummaryAccordion(state)}
+          />
+        </div>
+        <div className='additional-info-table'>
           <table className='header-details-table'>
+            <tr>
+              <th>Phone</th>
+              <td>{personalDetails?.phone}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{personalDetails?.email}</td>
+            </tr>
             <tr>
               <th>Location</th>
               <td>{classesDetails?.coachingAddress}</td>
@@ -43,22 +69,22 @@ const MentorDetails = (props) => {
               <th>Mode of teaching</th>
               <td>{classesDetails?.modeOfTeaching}</td>
             </tr>
+            <tr>
+              <th>Year of Experience</th>
+              <td>{classesDetails?.YoE}</td>
+            </tr>
+            <tr>
+              <th>Coaching Center Name</th>
+              <td>{classesDetails?.coachingName}</td>
+            </tr>
+            <tr>
+              <th>Coaching Address</th>
+              <td>{classesDetails?.coachingAddress}</td>
+            </tr>
           </table>
         </div>
       </div>
-      <div className='mentor-details-summary'>
-        <div className='mentor-details-summary__heading'>
-          <img
-            className='mentor-details-summary__image'
-            src={personalDetails?.imageUrl}
-            alt='mentorPicture'
-          />
-          <p>About</p>
-        </div>
-        <p className='mentor-details-summary__description'>
-          {personalDetails?.summary}
-        </p>
-      </div>
+      {/*
       <div className='table-wrapper'>
         <table className='lg-grid-details-table header-details-table'>
           <tr>
@@ -82,7 +108,7 @@ const MentorDetails = (props) => {
             <td>{classesDetails?.coachingAddress}</td>
           </tr>
         </table>
-      </div>
+      </div> */}
     </div>
   )
 }

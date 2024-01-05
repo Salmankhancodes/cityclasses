@@ -1,6 +1,6 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { getDataFromStore } from '../../components/utils'
-import { MENTORS } from '../../constants'
+import { MENTOR, MENTORS } from '../../constants'
 import { auth, db, imageDb } from '../../firebase-setup/firebase'
 import {
   MENTOR_FORM_SAVE_FULFILLED,
@@ -10,6 +10,7 @@ import {
   MENTOR_FORM_RESET,
 } from '../names'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { dummyData } from '../../components/initial-states'
 
 export const saveMentorForm = (data, image) => {
   return async (dispatch) => {

@@ -1,0 +1,26 @@
+.accordion-header {
+  background-color: rebeccapurple;
+  display: flex;
+  color: white;
+  background-color: #ee4e34;
+  align-items: center;
+}
+.accordion-title {
+  text-align: center;
+  width: 100%;
+}
+.accordion-text-area {
+  background-color: white;
+  height: max-content;
+  padding: 0.5rem;
+  line-height: 1.5rem;
+  display: none;
+}
+.accordion-text-area.open {
+  display: block;
+}
+
+.accordion-header .collapsible-icon {
+  font-size: 2rem;
+  margin-left: 1rem;
+}

@@ -51,6 +51,10 @@
   align-items: center;
 }
 
+input[type='radio'] {
+  accent-color: #ee4e34;
+}
+
 .signup-container .signup-input-field-radio {
   margin-left: 2rem;
   height: 1rem;
@@ -103,7 +107,7 @@
   border: 2px solid #ee4e34;
   border-radius: 10px;
   background-color: white;
-  color: #066f6f;
+  color: #ee4e34;
   font-weight: 600;
   cursor: pointer;
 }

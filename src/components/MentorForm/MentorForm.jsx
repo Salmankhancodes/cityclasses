@@ -191,13 +191,10 @@ const MentorForm = (props) => {
                 Summary
               </label>
               <textarea
-                className='form-input'
+                className='form-input form-summary'
                 name='summary'
                 value={summary}
                 type='text'
-                id=''
-                cols='30'
-                rows='10'
                 onChange={(e) => handleChange(e, 'personalDetails', 'summary')}
               ></textarea>
             </div>
