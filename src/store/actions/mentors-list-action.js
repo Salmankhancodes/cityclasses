@@ -23,3 +23,8 @@ export const getAllMentorsData = () => {
     }
   }
 }
+
+export const searchMentorByFilter = (payload) => ({
+  type: 'UPDATE_SEARCH_FILTERS',
+  payload,
+})

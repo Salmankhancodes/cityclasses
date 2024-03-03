@@ -1,0 +1,23 @@
+.feeds-filter-container {
+  display: flex;
+  /* background-color: rebeccapurple; */
+  justify-content: space-between;
+}
+.feeds-filter-container .field-box {
+  width: 48%;
+}
+
+.feeds-filter-container .field-box .form-input {
+  border: 1px solid #ee4e34;
+  background-color: white;
+  border-radius: 5px;
+}
+@media (min-width: 900px) {
+  .feeds-filter-container {
+    justify-content: right;
+  }
+  .feeds-filter-container .field-box {
+    width: 20%;
+    margin-left: 5%;
+  }
+}

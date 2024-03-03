@@ -20,6 +20,7 @@ export const saveMentorForm = (data, image) => {
       const userDocRef = doc(db, MENTORS, currentUser.uid)
       const imgRef = ref(imageDb, `profileimage/${currentUser.uid}`)
       await uploadBytes(imgRef, image)
+      alert('Image uploaded!')
       const imageUrl = await getDownloadURL(imgRef)
       const payload = {
         ...data,

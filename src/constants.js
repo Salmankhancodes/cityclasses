@@ -18,3 +18,7 @@ export const NETWORK_ISSUE = 'auth/network-request-failed'
 export const INCORRECT_PASSWORD = 'auth/wrong-password'
 export const TOO_MANY_REQUESTS = 'auth/too-many-requests'
 export const INVALID_CREDENTIALS = 'auth/invalid-login-credentials'
+
+// default menntor image link
+export const DEFAULT_MENTOR_AVATAR_URL =
+  'https://firebasestorage.googleapis.com/v0/b/city-classes.appspot.com/o/profileimage%2FmentorDefaultAvatar.png?alt=media&token=7a02cc3b-ec7d-4a54-9784-01e63d3bc401'

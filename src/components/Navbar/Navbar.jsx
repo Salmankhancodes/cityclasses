@@ -6,9 +6,12 @@ import { Link } from 'react-router-dom'
 import { dummyData } from '../initial-states'
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import _ from 'lodash'
+import { connect } from 'react-redux'
+import { searchMentorByFilter } from '../../store/actions/mentors-list-action'
 
-const Navbar = () => {
-  const [searchData, setSearchData] = useState('')
+const Navbar = (props) => {
+  const { searchMentorByFilterDispatch } = props
+  const [searchQuery, setSearchQuery] = useState('')
   const handleSignOut = () => {
     signOut(auth)
   }
@@ -23,58 +26,38 @@ const Navbar = () => {
       }
     })
   }
-  const queryResults = async () => {
-    const res = []
-    const keyWords = searchData.trim().split(' ')
-    console.log(keyWords)
-    const collectionRef = collection(db, 'mentors')
-    try {
-      const alldata = await getDocs(collectionRef)
-      alldata.forEach((dat) => {
-        const pDet = dat?.data().personalDetails
-        const cDet = dat?.data().classesDetails.allClassesInfo
-        if (_.includes(keyWords, pDet.name)) {
-          res.push(dat.data())
-        }
-        cDet.forEach((cls) => {
-          if (
-            _.includes(keyWords, cls.subjectName) ||
-            _.includes(keyWords, cls.class)
-          ) {
-            res.push(dat.data())
-          }
-        })
-      })
-    } catch (error) {
-      console.log(error)
-    }
-    console.log(_.uniq(res))
+  const handleSearch = () => {
+    searchMentorByFilterDispatch(searchQuery)
   }
+
   const isLoggedIn = auth?.currentUser?.uid
   return (
     <nav className='nav-container'>
       <div className='logo-section'>
-        <img
-          src='src\\assets\\NEW-city-classes-logo.png'
-          alt=''
-          srcSet=''
-          className='cc-logo'
-        />
-        <div className='search-bar'>
+        <Link to={'/'}>
+          <img
+            src='src\\assets\\NEW-city-classes-logo.png'
+            alt=''
+            srcSet=''
+            className='cc-logo'
+          />
+        </Link>
+        {/* <div className='search-bar'>
           <input
-            value={searchData}
-            onChange={(e) => setSearchData(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             type='text'
-            placeholder='Search by name, subjects...'
+            placeholder='Search by mentor name'
           />
           <span
-            onClick={queryResults}
+            onClick={handleSearch}
             className='material-symbols-outlined search-icon'
           >
             search
           </span>
-        </div>
+        </div> */}
       </div>
+      {/* <button onClick={() => addDummyData()}>Add dummy data</button> */}
       <ul className='nav-menu'>
         {!isLoggedIn ? (
           <>
@@ -95,4 +78,10 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default connect(
+  () => ({}),
+  (dispatch) => ({
+    searchMentorByFilterDispatch: (opts) =>
+      dispatch(searchMentorByFilter(opts)),
+  })
+)(Navbar)

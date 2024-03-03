@@ -71,16 +71,20 @@ const MentorForm = (props) => {
     })
   }
   const {
-    personalDetails: { name, email, dob, phone, residentialAddress, summary },
-    classesDetails: {
+    personalDetails: {
+      name,
+      email,
+      dob,
+      phone,
+      residentialAddress,
+      summary,
       coachingName,
       modeOfTeaching,
       coachingAddress,
       YoE,
-      allClassesInfo,
     },
+    classesDetails,
   } = formData
-  console.log(name, email)
   const handleFormReset = () => {
     const confirmOption = confirm('Do you really want to reset form ?')
     if (confirmOption) {
@@ -89,6 +93,7 @@ const MentorForm = (props) => {
   }
 
   const handleFormSubmit = () => {
+    
     saveMentorFormDispatch(formData, image)
   }
   const handleImageUpload = (e) => {
@@ -209,13 +214,12 @@ const MentorForm = (props) => {
               </label>
               <input
                 placeholder='Name of your coaching institute'
-                required
                 type='text'
                 className='form-input'
                 name='classesName'
                 value={coachingName}
                 onChange={(e) =>
-                  handleChange(e, 'classesDetails', 'coachingName')
+                  handleChange(e, 'personalDetails', 'coachingName')
                 }
               />
             </div>
@@ -231,7 +235,7 @@ const MentorForm = (props) => {
                 name='modeOfTeaching'
                 value={modeOfTeaching}
                 onChange={(e) =>
-                  handleChange(e, 'classesDetails', 'modeOfTeaching')
+                  handleChange(e, 'personalDetails', 'modeOfTeaching')
                 }
               />
             </div>{' '}
@@ -246,7 +250,7 @@ const MentorForm = (props) => {
                 className='form-input'
                 name='yearOfExperience'
                 value={YoE}
-                onChange={(e) => handleChange(e, 'classesDetails', 'YoE')}
+                onChange={(e) => handleChange(e, 'personalDetails', 'YoE')}
               />
             </div>{' '}
             <div className='field-box'>
@@ -254,19 +258,18 @@ const MentorForm = (props) => {
                 Coaching Address{' '}
               </label>
               <input
-                required
                 type='text'
                 className='form-input'
                 name='coachingAddress'
                 value={coachingAddress}
                 onChange={(e) =>
-                  handleChange(e, 'classesDetails', 'coachingAddress')
+                  handleChange(e, 'personalDetails', 'coachingAddress')
                 }
               />
             </div>
           </div>
         </div>
-        {allClassesInfo?.map((eachClass, idx) => {
+        {classesDetails?.map((eachClass, idx) => {
           return (
             <SubjectFields
               key={idx}

@@ -20,11 +20,24 @@ const mentorsListReducer = (state = initialState, action) => {
         error: false,
       }
     case GET_MENTORS_LIST_FULFILLED:
+      const allMentorsData = action.payload
+      let flattenData = []
+      allMentorsData.forEach((eachMentorData) => {
+        const AllclassesData = eachMentorData.classesDetails
+        AllclassesData.forEach((eachClass) => {
+          let data = {
+            ...eachMentorData.personalDetails,
+            ...eachClass,
+            id: eachMentorData.id,
+          }
+          flattenData.push(data)
+        })
+      })
       return {
         ...state,
         loading: false,
         error: false,
-        data: [...action.payload],
+        data: flattenData,
       }
     case GET_MENTORS_LIST_REJECTED:
       return {

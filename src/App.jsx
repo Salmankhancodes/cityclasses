@@ -37,7 +37,10 @@ function App(props) {
           <Route exact path='/' element={<Feeds />} />
           <Route path='/login' element={userExist ? <Feeds /> : <Login />} />
           <Route path='/signup' element={userExist ? <Feeds /> : <Signup />} />
-          <Route path='/details/:id' element={<MentorDetails />} />
+          <Route
+            path='/details/:id/:grade/:subjectName'
+            element={<MentorDetails />}
+          />
           <Route
             path='/mentor-form'
             element={userExist ? <MentorForm /> : <Signup />}

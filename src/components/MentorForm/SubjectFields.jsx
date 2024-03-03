@@ -47,8 +47,8 @@ const SubjectFields = ({
             required
             className='form-input'
             name={`standard${idx}`}
-            value={data.class}
-            onChange={(e) => handleClassDataChange(e, 'class', idx)}
+            value={data.grade}
+            onChange={(e) => handleClassDataChange(e, 'grade', idx)}
           >
             <option value='not-selected'>--Select--</option>
             <option value='1'>Class 1</option>

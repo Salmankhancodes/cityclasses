@@ -44,3 +44,7 @@ export const generateErrorMessage = (errMsg) => {
  * @returns data from store
  */
 export const getDataFromStore = (stateName) => store.getState()?.[stateName]
+
+export const flattenMentorDataForEachClass = ()=>{
+  
+}

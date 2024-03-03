@@ -20,11 +20,15 @@ const detailsPageReducers = (state = initialState, action) => {
         error: false,
       }
     case GET_MENTOR_DETAILS_FULFILLED:
+      const filteredData = {
+        ...action.payload.personalDetails,
+        ...action.payload.classesDetails?.at(0),
+      }
       return {
         ...state,
         loading: false,
         error: false,
-        data: action.payload,
+        data: filteredData,
       }
     case GET_MENTOR_DETAILS_REJECTED:
       return {

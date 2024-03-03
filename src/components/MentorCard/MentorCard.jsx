@@ -1,33 +1,37 @@
 import React from 'react'
 import './MentorCard.css'
+import _ from 'lodash'
 import { Link } from 'react-router-dom'
+import { DEFAULT_MENTOR_AVATAR_URL } from '../../constants'
 const MentorCard = (props) => {
   const { data } = props
-  const {
-    personalDetails: { name, imageUrl },
-  } = data
+  const { name, id, fees, subjectName, grade, imageUrl } = data
   return (
     <div className='mentor-card'>
       <img
         className='mentor-card-img'
         src={
+          imageUrl ?? DEFAULT_MENTOR_AVATAR_URL
           // 'src\\assets\\city-classes-logo.png' ||
-          imageUrl || 'srcassetsmentorimage.jpg'
+          // 'srcassetsmentorimage.jpg'
         }
         alt=''
       />
       <div className='mentor-card__details'>
         <div className='mentor-card__row1'>
-          <span>Economics</span>
-          <span>₹1200</span>
+          <span>{_.capitalize(subjectName)}</span>
+          <span className='mentor-card__rating'>Class {grade}</span>
         </div>
         <div className='mentor-card__row2'>
           <span>{name}</span>
-          <span className='mentor-card__rating'>4.3⭐</span>
+          <span>₹{fees}</span>
         </div>
       </div>
 
-      <Link to={`/details/${data.id}`} className='linkProfileBtn'>
+      <Link
+        to={`/details/${id}/${grade}/${subjectName}`}
+        className='linkProfileBtn'
+      >
         <div className='mentor-card__button'>View profile</div>
       </Link>
     </div>
