@@ -32,7 +32,7 @@ function App(props) {
   return (
     <>
       <Router>
-        <Navbar />
+        <Navbar userExist={userExist} />
         <Routes>
           <Route exact path='/' element={<Feeds />} />
           <Route path='/login' element={userExist ? <Feeds /> : <Login />} />

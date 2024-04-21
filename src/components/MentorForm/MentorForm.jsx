@@ -93,7 +93,6 @@ const MentorForm = (props) => {
   }
 
   const handleFormSubmit = () => {
-    
     saveMentorFormDispatch(formData, image)
   }
   const handleImageUpload = (e) => {

@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Navbar.css'
 import { signOut } from 'firebase/auth'
 import { auth, db } from '../../firebase-setup/firebase'
 import { Link } from 'react-router-dom'
 import { dummyData } from '../initial-states'
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { searchMentorByFilter } from '../../store/actions/mentors-list-action'
 
-const Navbar = (props) => {
-  const { searchMentorByFilterDispatch } = props
-  const [searchQuery, setSearchQuery] = useState('')
+const Navbar = ({ userExist }) => {
+  const [loginState, setLoginState] = useState(false)
+  const [showNavMenu, setShowNavMenu] = useState(false)
+  useEffect(() => {
+    if (userExist) {
+      setLoginState(true)
+    } else {
+      setLoginState(false)
+    }
+  }, [userExist])
   const handleSignOut = () => {
     signOut(auth)
   }
@@ -26,11 +33,6 @@ const Navbar = (props) => {
       }
     })
   }
-  const handleSearch = () => {
-    searchMentorByFilterDispatch(searchQuery)
-  }
-
-  const isLoggedIn = auth?.currentUser?.uid
   return (
     <nav className='nav-container'>
       <div className='logo-section'>
@@ -42,24 +44,27 @@ const Navbar = (props) => {
             className='cc-logo'
           />
         </Link>
-        {/* <div className='search-bar'>
-          <input
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            type='text'
-            placeholder='Search by mentor name'
-          />
-          <span
-            onClick={handleSearch}
-            className='material-symbols-outlined search-icon'
-          >
-            search
-          </span>
-        </div> */}
+        <span className='nav-toggle-btn'>
+          {!showNavMenu ? (
+            <span
+              className='material-symbols-outlined'
+              onClick={() => setShowNavMenu(!showNavMenu)}
+            >
+              menu
+            </span>
+          ) : (
+            <span
+              className='material-symbols-outlined'
+              onClick={() => setShowNavMenu(!showNavMenu)}
+            >
+              close
+            </span>
+          )}
+        </span>
       </div>
       {/* <button onClick={() => addDummyData()}>Add dummy data</button> */}
-      <ul className='nav-menu'>
-        {!isLoggedIn ? (
+      <ul className={`nav-menu ${showNavMenu ? '' : 'hide-menu'}`}>
+        {!loginState ? (
           <>
             <Link to='/signup' className='nav-link'>
               <li>Signup</li>
@@ -70,6 +75,9 @@ const Navbar = (props) => {
           </>
         ) : (
           <>
+            <Link to='/mentor-form' className='nav-link'>
+              <li>Mentor Profile</li>
+            </Link>
             <li onClick={handleSignOut}>Logout</li>
           </>
         )}

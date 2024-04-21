@@ -39,7 +39,7 @@ const MentorDetails = (props) => {
           <div className='video-info-section'>
             <div className='video-box'>
               <iframe
-                src='https://drive.google.com/file/d/1x7VVuF8zmFcfxITbkSLvEdq1vG5miKnQ/preview'
+                src='https://drive.google.com/file/d/11QKSHJiLJ2giF4W53eOeFBVxhEVBuZ83/preview'
                 // title='YouTube video player'
                 // frameBorder='0'
                 className='demo-video'
